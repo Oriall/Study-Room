@@ -1,0 +1,32 @@
+#camera, #camera--view, #camera--sensor, #camera--output{
+    position: fixed;
+    height: 90em;
+    width: 55em;
+    object-fit: cover;
+}
+#camera--view, #camera--sensor, #camera--output{
+    transform: scaleX(-1);
+    filter: FlipH;
+}
+#camera--trigger{
+    html, body{
+        background-color: rgb(16, 16, 16);
+        font-family: 'Segoe UI Light';
+        color: #f1f1f1;
+    }
+    
+    .camera-video{
+        width: 100%;
+        display: flex;
+        /* border: 1px solid red; */
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    video{
+        margin: 10px 0px;
+    }
+    
+    
+}

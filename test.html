@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Image</title>
+    <style>
+        .up_tile {
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 67px;
+            height: 65px;
+            border-radius: 5px;
+            background: #2E2C37;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        #uploadInput {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="up_tile" onclick="triggerUpload()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="41" height="42" viewBox="0 0 41 42" fill="none" id="uploadIcon">
+        <path d="M20.25 2.99805L20.25 39.0015" stroke="#12101C" stroke-width="5" stroke-linecap="round" />
+        <path d="M38 22L3 22" stroke="#12101C" stroke-width="5" stroke-linecap="round" />
+    </svg>
+</div>
+
+<input type="file" id="uploadInput" accept="image/*" onchange="handleImageUpload()">
+
+<script>
+    function triggerUpload() {
+        document.getElementById('uploadInput').click();
+    }
+
+    function handleImageUpload() {
+        const input = document.getElementById('uploadInput');
+        const icon = document.getElementById('uploadIcon');
+        
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            
+            reader.onload = function (e) {
+                // Change the SVG to an image
+                icon.innerHTML = `<img src="${e.target.result}" width="41" height="42" style="border-radius: 5px;">`;
+            };
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Pie Chart Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div style="width: 168px; height: 168px;">
+        <canvas id="myPieChart"></canvas>
+    </div>
+
+    <script>
+        const data = {
+            labels: ['Lướt Web', 'Làm Bài'],
+            datasets: [
+                {
+                    label: 'Fruit Distribution',
+                    data: [75, 25],
+                    backgroundColor: ['#7289DA', '#FFD433'],
+                },
+            ],
+        };
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const ctx = document.getElementById('myPieChart').getContext('2d');
+            const myPieChart = new Chart(ctx, {
+                type: 'pie',
+                data: data,
+                options: {
+                    plugins: {
+                        legend: {
+                            display: false, // Hide the legend label
+                        },
+
+                        title: {
+                            display: true,
+                            text: 'Fruit Distribution', // Your title here
+                            position: 'top',
+                            font: {
+                                size: 16,
+                            },
+
+                        },
+                    },
+                },
+            });
+        });
+    </script>
+</body>
+
+</html>

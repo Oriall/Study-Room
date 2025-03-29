@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Wave Frequency Visualization</title>
+</head>
+
+<body style="background-color: black;">
+    <audio controls id="audio" src="Better day.mp3"></audio>
+    <canvas id="audioWave"></canvas>
+    <script>
+        const audioElement = document.getElementById("audio");
+        const canvas = document.getElementById("audioWave");
+        const ctx = canvas.getContext("2d");
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const analyser = audioContext.createAnalyser();
+        analyser.fftSize = 256;
+        const bufferLength = analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+
+        // Connect the audio element to the analyser node
+        const source = audioContext.createMediaElementSource(audioElement);
+        source.connect(analyser);
+        analyser.connect(audioContext.destination);
+
+        // Set canvas dimensions
+        canvas.width = 800;
+        canvas.height = 200;
+        ctx.fillStyle = "white";
+
+        function draw() {
+            requestAnimationFrame(draw);
+
+            analyser.getByteFrequencyData(dataArray);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < bufferLength; i++) {
+                const barHeight = dataArray[i];
+                const x = i * (canvas.width / bufferLength);
+                const barWidth = canvas.width / bufferLength;
+                const gradient = ctx.createLinearGradient(x, 0, x + barWidth, 0);
+                gradient.addColorStop(0, 'blue');
+                gradient.addColorStop(1, 'red');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+            }
+        }
+
+        audioElement.addEventListener("play", () => {
+            audioContext.resume().then(() => {
+                audioElement.play();
+                draw();
+            });
+        });
+
+    </script>
+</body>
+
+</html>
