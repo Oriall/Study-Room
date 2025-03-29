@@ -651,7 +651,7 @@
                     <div id="box-slide">
                         <div id="list">
                             <div class="item" style="background-image: url('bg-page\ 1.jpg');" onclick="pic1()">
-                                <div id="phong1">
+                                <div id="phong1" class="hover-box">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="34" height="26" viewBox="0 0 34 26"
                                         fill="none">
                                         <path
@@ -662,7 +662,7 @@
                             </div>
                             <div class="item" style="background-image: url('Coffee\ in\ rain\ -\ gif\ animation.gif');"
                                 onclick="pic2()">
-                                <div id="phong2" style="display: none;">
+                                <div id="phong2" style="display: none;" class="hover-box">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="34" height="26" viewBox="0 0 34 26"
                                         fill="none">
                                         <path
@@ -674,7 +674,7 @@
                         </div>
                         <div id="list2" style="display: none;">
                             <div class="item" style="background-image: url('2020.gif');" onclick="pic3()">
-                                <div id="phong3" style="display: none;">
+                                <div id="phong3" style="display: none;" class="hover-box">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="34" height="26" viewBox="0 0 34 26"
                                         fill="none">
                                         <path
@@ -684,7 +684,29 @@
                                 </div>
                             </div>
                             <div class="item" style="background-image: url('Daydreaming\ 🌫.gif');" onclick="pic4()">
-                                <div id="phong4" style="display: none;">
+                                <div id="phong4" style="display: none;" class="hover-box">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="34" height="26" viewBox="0 0 34 26"
+                                        fill="none">
+                                        <path
+                                            d="M34 2.73378L10.6857 26L0 15.3363L2.73943 12.6025L10.6857 20.5131L31.2606 0L34 2.73378Z"
+                                            fill="#F8F8F8" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="list3" style="display: none;">
+                            <div class="item" style="background-image: url('After the rain___.gif');" onclick="pic5()">
+                                <div id="phong5" style="display: none;" class="hover-box">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="34" height="26" viewBox="0 0 34 26"
+                                        fill="none">
+                                        <path
+                                            d="M34 2.73378L10.6857 26L0 15.3363L2.73943 12.6025L10.6857 20.5131L31.2606 0L34 2.73378Z"
+                                            fill="#F8F8F8" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="item" style="background-image: url('bg_1 (2).gif');" onclick="pic6()">
+                                <div id="phong6" style="display: none;" class="hover-box">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="34" height="26" viewBox="0 0 34 26"
                                         fill="none">
                                         <path
@@ -702,46 +724,7 @@
                             fill="white" fill-opacity="0.77" />
                     </svg>
                 </div>
-                <script>
-                    function pic1() {
-                        document.getElementById('wrapper').style.backgroundImage = "url('bg-page\ 1.jpg')";
-                        document.getElementById('phong1').style.display = "flex";
-                        document.getElementById('phong2').style.display = "none";
-                        document.getElementById('phong3').style.display = "none";
-                        document.getElementById('phong4').style.display = "none";
-                    }
-                    function pic2() {
-                        document.getElementById('wrapper').style.backgroundImage = "url('Coffee\ in\ rain\ -\ gif\ animation.gif')";
-                        document.getElementById('phong2').style.display = "flex";
-                        document.getElementById('phong1').style.display = "none";
-                        document.getElementById('phong3').style.display = "none";
-                        document.getElementById('phong4').style.display = "none";
-                    }
-                    function pic3() {
-                        document.getElementById('wrapper').style.backgroundImage = "url('2020.gif')";
-                        document.getElementById('phong3').style.display = "flex";
-                        document.getElementById('phong4').style.display = "none";
-                        document.getElementById('phong2').style.display = "none";
-                        document.getElementById('phong1').style.display = "none";
-                    }
-                    function pic4() {
-                        document.getElementById('wrapper').style.backgroundImage = "url('Daydreaming\ 🌫.gif')";
-                        document.getElementById('phong4').style.display = "flex";
-                        document.getElementById('phong2').style.display = "none";
-                        document.getElementById('phong3').style.display = "none";
-                        document.getElementById('phong1').style.display = "none";
-                    }
-                </script>
-                <script>
-                    function prev() {
-                        document.getElementById("list").style.display = "none";
-                        document.getElementById("list2").style.display = "flex";
-                    }
-                    function next() {
-                        document.getElementById("list").style.display = "flex";
-                        document.getElementById("list2").style.display = "none";
-                    }
-                </script>
+                <script src="phong.js"></script>
                 <!-- <script>
                     document.getElementById('next').onclick = function () {
                         const widthItem = document.querySelector('.item').offsetWidth;

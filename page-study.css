@@ -855,7 +855,16 @@ body {
     overflow: hidden;
     transition: 0.25s;
 }
-
+#box-slide #list3 {
+    width: 255px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 12px;
+    overflow: hidden;
+    transition: 0.25s;
+}
 .img-slide #box-slide .item {
     cursor: pointer;
     width: 123px;
@@ -912,6 +921,26 @@ body {
     justify-content: center;
     align-items: center;
 }
+#phong5 {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.52);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#phong6 {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.52);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 
 .box-mon {
     display: flex;
