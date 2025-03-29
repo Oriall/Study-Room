@@ -107,7 +107,7 @@ a {
 
 }
 
-.box .box-center {
+.box #box-center {
     width: 359px;
     height: 44px;
     border-radius: 10px;
@@ -118,7 +118,7 @@ a {
     transition: 0.15s;
 }
 
-.box-center .home-btn {
+#box-center .home-btn {
     width: 84px;
     height: 26.4px;
     border-radius: 10px;
@@ -128,7 +128,7 @@ a {
     align-items: center;
 }
 
-.box-center .home-btn p {
+#box-center .home-btn p {
     color: rgba(255, 255, 255, 0.70);
     text-align: center;
     font-family: Montserrat;
@@ -139,13 +139,13 @@ a {
     letter-spacing: 4.2px;
 }
 
-.box-center .stick {
+#box-center .stick {
     width: 1px;
     height: 36px;
     background: rgba(255, 255, 255, 0.62);
 }
 
-.box-center .study {
+#box-center .study {
     color: #FFF;
     font-family: Inter;
     font-size: 17px;
@@ -154,7 +154,7 @@ a {
     line-height: normal;
 }
 
-.box-center .study-btn {
+#box-center .study-btn {
     width: 84px;
     height: 26.4px;
     border-radius: 18px;
@@ -164,7 +164,7 @@ a {
     align-items: center;
 }
 
-.box-center .study-btn p {
+#box-center .study-btn p {
     color: #FFF;
     text-align: center;
     font-family: Montserrat;
@@ -185,7 +185,7 @@ a {
     gap: 9px;
 }
 
-.box-right .music {
+.box-right #music {
     cursor: pointer;
     width: 42px;
     height: 39px;
@@ -196,7 +196,7 @@ a {
     background: #232931;
 }
 
-.box-right .status {
+.box-right #status {
     width: 172.023px;
     height: 38.114px;
     border-radius: 15px;
@@ -207,20 +207,20 @@ a {
     transition: 0.15s;
 }
 
-.status .wifi {
+#status .wifi {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.status .pin {
+#status .pin {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 1px;
 }
 
-.status .pin p {
+#status .pin p {
     color: #FFF;
     text-align: center;
     font-family: Inter;
@@ -231,7 +231,7 @@ a {
     transform: rotate(90.043deg);
 }
 
-.status .stick {
+#status .stick {
     width: 1px;
     height: 31.184px;
     background: rgba(255, 255, 255, 0.62);
@@ -578,19 +578,19 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 /*-----------------HOVER--------------------*/
-.box-right .music:hover {
+.box-right #music:hover {
     border: #FFF 1px solid;
     cursor: pointer;
     transform: scale(0.95);
 }
 
-.box-center:hover {
+#box-center:hover {
     border: #FFF 1px solid;
     cursor: pointer;
     transform: scale(0.95);
 }
 
-.status:hover {
+#status:hover {
     border: #FFF 1px solid;
     cursor: pointer;
     transform: scale(0.95);
@@ -663,7 +663,7 @@ body {
     position: relative;
 }
 
-.set-time {
+#set-time {
     cursor: pointer;
     width: 45px;
     height: 45px;
@@ -677,7 +677,7 @@ body {
     align-items: center;
 }
 
-.set-time:hover {
+#set-time:hover {
     border: #FFF 1px solid;
 }
 
@@ -691,15 +691,19 @@ body {
     right: 20px;
     bottom: 70px;
     display: flex;
+    transition: 0.2s;
     justify-content: center;
     align-items: center;
     color: #FFF;
     border: #FFF 1px solid;
     font-size: 13px;
 }
-
+.choose-set-time:hover{
+    transform: scale(1.1);
+}
 .choose-set-time2 {
     cursor: pointer;
+    transition: 0.2s;
     width: 45px;
     height: 45px;
     border-radius: 50%;
@@ -714,9 +718,13 @@ body {
     border: #FFF 1px solid;
     font-size: 13px;
 }
+.choose-set-time2:hover{
+    transform: scale(1.1);
+}
 
 .choose-set-time3 {
     cursor: pointer;
+    transition: 0.2s;
     width: 45px;
     height: 45px;
     border-radius: 50%;
@@ -731,7 +739,9 @@ body {
     border: #FFF 1px solid;
     font-size: 12px;
 }
-
+.choose-set-time3:hover{
+    transform: scale(1.1);
+}
 .thiet-lap {
     position: absolute;
     top: 66px;
@@ -1156,3 +1166,62 @@ body {
     position: absolute;
     resize: both;
 }
+/*---------NEW----------*/
+#menu2 {
+    z-index: 999;
+    position: absolute;
+    width: 181px;
+    height: 223px;
+    border-radius: 3px;
+    background: #1E1E2E;
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.25);
+    padding-top: 7px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+}
+
+.menu_item {
+    transition: 0.2s;
+    width: 161px;
+    height: 29px;
+    display: flex;
+    padding: 9px;
+    border-radius: 2px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.menu_item p {
+    color: rgba(255, 255, 255, 0.78);
+    font-family: Fira Code;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.menu_item2 {
+    cursor: pointer;
+    padding: 9px;
+    display: flex;
+    padding-top: 25px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.menu_item2 p {
+    color: #CAA6F9;
+    font-family: Fira Code;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.menu_item:hover {
+    background-color: #CAA6F9;
+    color: #1E1E2E;
+}
+
+/*-----------------*/
