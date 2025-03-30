@@ -391,11 +391,12 @@
                     </div>
 
                 </div>
-                <!-- <script>
+                <script>
                     document.addEventListener("DOMContentLoaded", function () {
                         const exploreDiv = document.querySelector(".explore");
                         let textElement = exploreDiv.querySelector("p");
-                        const youtubeContainer = document.getElementById("youtube-container");
+                        const pdfcontainer = document.getElementById("container");
+                        const textcontainer = document.getElementById("draggableDiv");
 
                         exploreDiv.addEventListener("click", function () {
                             if (exploreDiv.querySelector("input")) return;
@@ -413,18 +414,28 @@
                                 newText.innerText = input.value.trim() || "Explore";
                                 exploreDiv.replaceChild(newText, input);
                                 textElement = newText;
-                                if (input.value.toLowerCase().includes("youtube")) {
+                                if (input.value.toLowerCase().includes("pdf")) {
                                     showYouTube();
-                                } else {
-                                    youtubeContainer.style.display = "none";
+                                }
+                                if (input.value.toLowerCase().includes("hidepdf")) {
+                                    pdfcontainer.style.display = "none";
+                                }
+                                if (input.value.toLowerCase().includes("text")) {
+                                    showText();
+                                } if (input.value.toLowerCase().includes("hidetext")) {
+                                    textcontainer.style.display = "none";
                                 }
                             });
                         });
+                        function showYouTube() {
+                            pdfcontainer.style.display = "inline-block";
+                        }
+                        function showText() {
+                            textcontainer.style.display = "block";
+                        }
                     });
-                    // function showYouTube(){
-                    //     youtubeContainer.style.display = "block";
-                    // }
-                </script> -->
+
+                </script>
                 <div class="choose_bg">
                     <div class="title">
                         <p>Trang Trí Room</p>
@@ -591,31 +602,6 @@
                 </div>
 
             </div>
-            <iframe style="display: none;" src="https://www.youtube.com" title="Youtube"
-                id="youtube-container"></iframe>
-            <script>
-                var draggableElement = document.getElementById("youtube-container");
-                var offsetX = 0;
-                var offsetY = 0;
-                var isDragging = false;
-
-                draggableElement.addEventListener("mousedown", function (event) {
-                    offsetX = event.clientX - draggableElement.offsetLeft;
-                    offsetY = event.clientY - draggableElement.offsetTop;
-                    isDragging = true;
-                });
-
-                document.addEventListener("mousemove", function (event) {
-                    if (isDragging) {
-                        draggableElement.style.left = (event.clientX - offsetX) + "px";
-                        draggableElement.style.top = (event.clientY - offsetY) + "px";
-                    }
-                });
-
-                document.addEventListener("mouseup", function () {
-                    isDragging = false;
-                });
-            </script>
             <div class="close" id="close">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="23" viewBox="0 0 24 23" fill="none">
                     <path
@@ -934,20 +920,28 @@
             </div>
             <div id="shadow"></div>
         </div>
-        
+
     </div>
     <div id="text-container"></div>
     <script src="text_animation.js"></script>
-
+    <div id="container">
+        <div style="display: flex;justify-content: center;align-items: center; column-gap: 20px;">
+            <label for="fileInput" id="fileInputLabel" class="hover-box"></label>
+            <button id="toggleDrag" class="hover-box">-</button>
+        </div>
+        <input type="file" id="fileInput" accept=".pdf">
+        <iframe id="pdfViewer"></iframe>
+    </div>
+    <script src="container_draggble.js"></script>
     <script>
         document.getElementById("music").addEventListener("click", function () {
             var musicDiv = document.getElementById("box_ghost");
             if (musicDiv.style.display === "none" || musicDiv.style.display === "") {
                 musicDiv.style.display = "block";
-             
+
             } else {
                 musicDiv.style.display = "none";
-               
+
             }
         });
     </script>
@@ -973,6 +967,14 @@
             });
         });
     </script>
+    <div id="draggableDiv">
+        <div id="toggleDrag2" class="hover-box">@</div>
+        <div class="code-box" id="code_box" contenteditable="true">
+            <p>// Code in Here</p>
+        </div>
+
+    </div>
+    <script src="text_dragble.js"></script>
     <script>
         let countdownInterval;
         var elem = document.documentElement;
@@ -1114,7 +1116,6 @@
         }
     </script>
     <script src="music.js"></script>
-    <script src="draggable.js"></script>
     <!----<script src="check.js"></script>--->
 </body>
 
