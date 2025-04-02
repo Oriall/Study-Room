@@ -21,7 +21,14 @@
 
 
 > [!CAUTION]
+> Để hiện thị box ứng dụng, tại ô **explore** nhập từ: 
+* **text** hiện thị box text !
+* **pdf** hiện thị box pdf upload !
+> Sẽ có 2 trạng thái của box, 1 để bật draggble kéo thả di chuyển box, 2 là tắt đi và resize cũng như hoạt động bình thường
+[Nơi để nhập](image.png)
+
+
 > Đây dơn giản là một dự án luyện tập Frond-end nên chắc chắn sẽ ko có nhiều tính năng
 > Để trải nghiệm những dự án tốt nhất của tôi hãy truy cập [Oriall](https://github.com/Oriall)
->
+
 
