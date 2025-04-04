@@ -1648,6 +1648,25 @@ body {
     /* Đảm bảo dấu cách hiển thị chính xác */
 }
 
+/* Hiệu ứng con trỏ nhấp nháy */
+#text-container::after {
+    content: '|';
+    animation: blink 1s step-start infinite;
+    margin-left: 5px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Keyframes cho hiệu ứng nhấp nháy */
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+}
+
+
 /*----------COntainer Draggble----*/
 #container {
     background: rgba(18, 18, 26, 0.64);
