@@ -8,9 +8,11 @@ function pic1() {
     document.getElementById('phong7').style.display = "none";
     document.getElementById('phong8').style.display = "none";
     document.getElementById('phong4').style.display = "none";
+    document.getElementById('phong9').style.display = "none";
+    document.getElementById('phong10').style.display = "none";
 }
 function pic2() {
-    document.getElementById('wrapper').style.backgroundImage = "url('Coffee\ in\ rain\ -\ gif\ animation.gif')";
+    document.getElementById('wrapper').style.backgroundImage = "url('p_1.gif')";
     document.getElementById('phong2').style.display = "flex";
     document.getElementById('phong1').style.display = "none";
     document.getElementById('phong3').style.display = "none";
@@ -19,6 +21,8 @@ function pic2() {
     document.getElementById('phong4').style.display = "none";
     document.getElementById('phong6').style.display = "none";
     document.getElementById('phong5').style.display = "none";
+    document.getElementById('phong9').style.display = "none";
+    document.getElementById('phong10').style.display = "none";
 }
 function pic3() {
     document.getElementById('wrapper').style.backgroundImage = "url('2020.gif')";
@@ -30,6 +34,8 @@ function pic3() {
     document.getElementById('phong6').style.display = "none";
     document.getElementById('phong5').style.display = "none";
     document.getElementById('phong1').style.display = "none";
+    document.getElementById('phong9').style.display = "none";
+    document.getElementById('phong10').style.display = "none";
 }
 function pic4() {
     document.getElementById('wrapper').style.backgroundImage = "url('Daydreaming\ 🌫.gif')";
@@ -41,6 +47,8 @@ function pic4() {
     document.getElementById('phong6').style.display = "none";
     document.getElementById('phong5').style.display = "none";
     document.getElementById('phong1').style.display = "none";
+    document.getElementById('phong9').style.display = "none";
+    document.getElementById('phong10').style.display = "none";
 }
 function pic5() {
     document.getElementById('wrapper').style.backgroundImage = "url('After the rain___.gif')";
@@ -52,6 +60,8 @@ function pic5() {
     document.getElementById('phong1').style.display = "none";
     document.getElementById('phong4').style.display = "none";
     document.getElementById('phong6').style.display = "none";
+    document.getElementById('phong9').style.display = "none";
+    document.getElementById('phong10').style.display = "none";
 }
 function pic6() {
     document.getElementById('wrapper').style.backgroundImage = "url('bg_1 (2).gif')";
@@ -63,6 +73,8 @@ function pic6() {
     document.getElementById('phong7').style.display = "none";
     document.getElementById('phong8').style.display = "none";
     document.getElementById('phong1').style.display = "none";
+    document.getElementById('phong9').style.display = "none";
+    document.getElementById('phong10').style.display = "none";
 }
 function pic7() {
     document.getElementById('wrapper').style.backgroundImage = "url('p_7.gif')";
@@ -74,6 +86,8 @@ function pic7() {
     document.getElementById('phong5').style.display = "none";
     document.getElementById('phong3').style.display = "none";
     document.getElementById('phong1').style.display = "none";
+    document.getElementById('phong9').style.display = "none";
+    document.getElementById('phong10').style.display = "none";
 }
 function pic8() {
     document.getElementById('wrapper').style.backgroundImage = "url('p_81.gif')";
@@ -85,6 +99,34 @@ function pic8() {
     document.getElementById('phong5').style.display = "none";
     document.getElementById('phong3').style.display = "none";
     document.getElementById('phong1').style.display = "none";
+    document.getElementById('phong9').style.display = "none";
+    document.getElementById('phong10').style.display = "none";
+}
+function pic9() {
+    document.getElementById('wrapper').style.backgroundImage = "url('p_9.gif')";
+    document.getElementById('phong9').style.display = "flex";
+    document.getElementById('phong2').style.display = "none";
+    document.getElementById('phong4').style.display = "none";
+    document.getElementById('phong6').style.display = "none";
+    document.getElementById('phong7').style.display = "none";
+    document.getElementById('phong5').style.display = "none";
+    document.getElementById('phong3').style.display = "none";
+    document.getElementById('phong1').style.display = "none";
+    document.getElementById('phong8').style.display = "none";
+    document.getElementById('phong10').style.display = "none";
+}
+function pic10() {
+    document.getElementById('wrapper').style.backgroundImage = "url('p_10.gif')";
+    document.getElementById('phong10').style.display = "flex";
+    document.getElementById('phong2').style.display = "none";
+    document.getElementById('phong4').style.display = "none";
+    document.getElementById('phong6').style.display = "none";
+    document.getElementById('phong7').style.display = "none";
+    document.getElementById('phong5').style.display = "none";
+    document.getElementById('phong3').style.display = "none";
+    document.getElementById('phong1').style.display = "none";
+    document.getElementById('phong9').style.display = "none";
+    document.getElementById('phong8').style.display = "none";
 }
 
 let currentList = 1;
@@ -94,14 +136,15 @@ function updateList() {
     document.getElementById("list2").style.display = currentList === 2 ? "flex" : "none";
     document.getElementById("list3").style.display = currentList === 3 ? "flex" : "none";
     document.getElementById("list4").style.display = currentList === 4 ? "flex" : "none";
+    document.getElementById("list5").style.display = currentList === 5 ? "flex" : "none";
 }
 
 function next() {
-    currentList = currentList === 4 ? 1 : currentList + 1;
+    currentList = currentList === 5 ? 1 : currentList + 1;
     updateList();
 }
 
 function prev() {
-    currentList = currentList === 1 ? 4 : currentList - 1;
+    currentList = currentList === 1 ? 5 : currentList - 1;
     updateList();
 }

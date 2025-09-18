@@ -1,60 +1,277 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="vi">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload Image</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>YouTube Audio Player</title>
     <style>
-        .up_tile {
-            margin: auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 67px;
-            height: 65px;
-            border-radius: 5px;
-            background: #2E2C37;
-            cursor: pointer;
-            transition: 0.2s;
+        :root {
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial
         }
 
-        #uploadInput {
-            display: none;
+        body {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 6px
+        }
+
+        .card {
+            padding: 16px;
+            border-radius: 10px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+        }
+
+        .row {
+            display: flex;
+            gap: 8px
+        }
+
+        input[type=text] {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ddd
+        }
+
+        button {
+            padding: 10px 14px;
+            border: 0;
+            border-radius: 8px;
+            background: #0b69ff;
+            color: #fff;
+            cursor: pointer
+        }
+
+        button.secondary {
+            background: #6b7280
+        }
+
+        .controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-top: 12px
+        }
+
+        .big {
+            font-size: 18px
+        }
+
+        .meta {
+            margin-top: 12px;
+            color: #444
+        }
+
+        .hint {
+            margin-top: 10px;
+            color: #666;
+            font-size: 13px
+        }
+
+        .time {
+            min-width: 80px;
+            text-align: center
+        }
+
+        .volume {
+            width: 120px
         }
     </style>
 </head>
+
 <body>
+    <div class="card">
+        <h1>Trình phát chỉ âm thanh từ YouTube</h1>
+        <div class="row">
+            <input id="ytUrl" type="text"
+                placeholder="Dán link YouTube ở đây (ví dụ: https://www.youtube.com/watch?v=...)" />
+            <button id="loadBtn">Phát</button>
+            <button id="stopBtn" class="secondary">Dừng</button>
+        </div>
 
-<div class="up_tile" onclick="triggerUpload()">
-    <svg xmlns="http://www.w3.org/2000/svg" width="41" height="42" viewBox="0 0 41 42" fill="none" id="uploadIcon">
-        <path d="M20.25 2.99805L20.25 39.0015" stroke="#12101C" stroke-width="5" stroke-linecap="round" />
-        <path d="M38 22L3 22" stroke="#12101C" stroke-width="5" stroke-linecap="round" />
-    </svg>
-</div>
+        <div class="controls">
+            <button id="playPause">⏯️</button>
+            <div class="time" id="time">00:00 / 00:00</div>
+            <input id="seek" type="range" min="0" max="100" value="0" />
+            <label for="vol">Âm lượng</label>
+            <input id="vol" class="volume" type="range" min="0" max="100" value="100" />
+            <button id="mute" class="secondary">Mute</button>
+        </div>
 
-<input type="file" id="uploadInput" accept="image/*" onchange="handleImageUpload()">
+        <div class="meta" id="meta">Chưa có video</div>
+        <div class="hint">Ghi chú: do chính sách trình duyệt, autoplay có thể bị chặn nếu trang chưa được tương tác. Nếu
+            không nghe được, bấm play/tạm dừng hoặc tương tác với trang.</div>
+    </div>
 
-<script>
-    function triggerUpload() {
-        document.getElementById('uploadInput').click();
-    }
+    <div id="player-container" style="position:fixed;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;"></div>
 
-    function handleImageUpload() {
-        const input = document.getElementById('uploadInput');
-        const icon = document.getElementById('uploadIcon');
-        
-        if (input.files && input.files[0]) {
-            const reader = new FileReader();
-            
-            reader.onload = function (e) {
-                // Change the SVG to an image
-                icon.innerHTML = `<img src="${e.target.result}" width="41" height="42" style="border-radius: 5px;">`;
-            };
-            
-            reader.readAsDataURL(input.files[0]);
+    <script>
+        // --- Helper: lấy videoId từ URL ---
+        function extractYouTubeID(url) {
+            if (!url) return null;
+            // các dạng link phổ biến
+            const patterns = [
+                /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([\w-]{11})/,
+                /(?:https?:\/\/)?(?:www\.)?youtu\.be\/([\w-]{11})/,
+                /(?:https?:\/\/)?(?:www\.)?youtube\.com\/embed\/([\w-]{11})/
+            ];
+            for (const p of patterns) {
+                const m = url.match(p);
+                if (m) return m[1];
+            }
+            // fallback: tìm id 11 ký tự
+            const fallback = url.match(/([\w-]{11})/);
+            return fallback ? fallback[1] : null;
         }
-    }
-</script>
 
+        // --- YouTube IFrame API setup ---
+        let YTplayer = null;
+        let currentVideoId = null;
+        let isReady = false;
+
+        function createPlayer(videoId, autoplay = false) {
+            currentVideoId = videoId;
+            const container = document.getElementById('player-container');
+            container.innerHTML = '<div id="yt-player"></div>';
+            YTplayer = new YT.Player('yt-player', {
+                height: '1', width: '1',
+                videoId: videoId,
+                playerVars: {
+                    autoplay: autoplay ? 1 : 0,
+                    controls: 0,
+                    disablekb: 1,
+                    modestbranding: 1,
+                    playsinline: 1,
+                    rel: 0,
+                    fs: 0
+                },
+                events: {
+                    'onReady': (e) => {
+                        isReady = true;
+                        try { e.target.setVolume(document.getElementById('vol').value); } catch (e) { }
+                        updateMeta();
+                        if (autoplay) e.target.playVideo();
+                    },
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerStateChange(event) {
+            updateControls();
+        }
+
+        // Load IFrame API
+        (function loadYouTubeAPI() {
+            const s = document.createElement('script');
+            s.src = "https://www.youtube.com/iframe_api";
+            document.head.appendChild(s);
+        })();
+
+        // --- UI wiring ---
+        const loadBtn = document.getElementById('loadBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const playPause = document.getElementById('playPause');
+        const vol = document.getElementById('vol');
+        const muteBtn = document.getElementById('mute');
+        const timeEl = document.getElementById('time');
+        const seek = document.getElementById('seek');
+        const meta = document.getElementById('meta');
+
+        loadBtn.addEventListener('click', () => {
+            const url = document.getElementById('ytUrl').value.trim();
+            const id = extractYouTubeID(url);
+            if (!id) { alert('Không xác định được ID từ link. Vui lòng kiểm tra link.'); return; }
+            if (YTplayer && currentVideoId === id) {
+                // same video -> play
+                playOrResume();
+            } else {
+                // tạo player mới
+                if (YTplayer) { try { YTplayer.destroy(); } catch (e) { } }
+                createPlayer(id, true);
+                startPolling();
+            }
+        });
+
+        stopBtn.addEventListener('click', () => {
+            if (YTplayer) { YTplayer.stopVideo(); }
+            meta.textContent = 'Stopped.';
+        });
+
+        playPause.addEventListener('click', () => { playOrPause(); });
+
+        vol.addEventListener('input', () => { if (YTplayer) YTplayer.setVolume(Number(vol.value)); });
+
+        muteBtn.addEventListener('click', () => {
+            if (!YTplayer) return;
+            const muted = YTplayer.isMuted();
+            if (muted) { YTplayer.unMute(); muteBtn.textContent = 'Mute'; }
+            else { YTplayer.mute(); muteBtn.textContent = 'Unmute'; }
+        });
+
+        seek.addEventListener('input', () => {
+            if (!YTplayer || !isReady) return;
+            const dur = YTplayer.getDuration() || 0;
+            const t = dur * (Number(seek.value) / 100);
+            YTplayer.seekTo(t, true);
+        });
+
+        function playOrPause() {
+            if (!YTplayer) return;
+            const state = YTplayer.getPlayerState();
+            // 1 = playing, 2 = paused
+            if (state === 1) YTplayer.pauseVideo();
+            else YTplayer.playVideo();
+        }
+        function playOrResume() { if (YTplayer) YTplayer.playVideo(); }
+
+        function updateControls() {
+            if (!YTplayer || !isReady) return;
+            const st = YTplayer.getPlayerState();
+            playPause.textContent = (st === 1) ? '⏸️' : '▶️';
+            const dur = YTplayer.getDuration() || 0;
+            const cur = YTplayer.getCurrentTime() || 0;
+            timeEl.textContent = formatTime(cur) + ' / ' + formatTime(dur);
+            if (dur > 0) seek.value = Math.round((cur / dur) * 100);
+            meta.textContent = 'Video ID: ' + currentVideoId + (st === 1 ? ' — Playing' : '');
+        }
+
+        function updateMeta() {
+            if (!YTplayer) return;
+            // không gọi YouTube Data API (không có key), chỉ hiển thị ID
+            meta.textContent = 'Video ID: ' + currentVideoId + ' — ready.';
+        }
+
+        function formatTime(s) {
+            s = Math.floor(s || 0);
+            const mm = Math.floor(s / 60).toString().padStart(2, '0');
+            const ss = (s % 60).toString().padStart(2, '0');
+            return mm + ':' + ss;
+        }
+
+        // Poll mỗi 500ms để cập nhật UI
+        let pollInterval = null;
+        function startPolling() {
+            if (pollInterval) clearInterval(pollInterval);
+            pollInterval = setInterval(() => { try { updateControls(); } catch (e) { } }, 500);
+        }
+
+        // Nếu user nhập Enter trong input
+        document.getElementById('ytUrl').addEventListener('keydown', (e) => { if (e.key === 'Enter') { loadBtn.click(); } });
+
+        // YouTube API sẽ gán hàm này toàn cục khi script nạp xong
+        function onYouTubeIframeAPIReady() { /* được gọi bởi API */ }
+        // expose to window
+        window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
+
+        // Hướng dẫn nhanh khi mở file local: một số trình duyệt chặn autoplay khi file mở local hoặc trang chưa tương tác.
+    </script>
 </body>
+
 </html>
