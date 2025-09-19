@@ -396,6 +396,7 @@
                         const exploreDiv = document.querySelector(".explore");
                         let textElement = exploreDiv.querySelector("p");
                         const pdfcontainer = document.getElementById("container");
+                        const ai = document.getElementById("container2");
                         const textcontainer = document.getElementById("draggableDiv");
 
                         exploreDiv.addEventListener("click", function () {
@@ -425,6 +426,11 @@
                                 } if (input.value.toLowerCase().includes("hidetext")) {
                                     textcontainer.style.display = "none";
                                 }
+                                if (input.value.toLowerCase().includes("quiz")) {
+                                    showquiz();
+                                } if (input.value.toLowerCase().includes("hidequiz")) {
+                                    ai.style.display = "none";
+                                }
                             });
                         });
                         function showYouTube() {
@@ -432,6 +438,9 @@
                         }
                         function showText() {
                             textcontainer.style.display = "block";
+                        }
+                        function showquiz() {
+                            ai.style.display = "block";
                         }
                     });
 
@@ -659,8 +668,7 @@
                                     </svg>
                                 </div>
                             </div>
-                            <div class="item" style="background-image: url('p_1.gif');"
-                                onclick="pic2()">
+                            <div class="item" style="background-image: url('p_1.gif');" onclick="pic2()">
                                 <div id="phong2" style="display: none;" class="hover-box">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="34" height="26" viewBox="0 0 34 26"
                                         fill="none">
@@ -838,6 +846,11 @@
             <script>
                 function cr_ch() {
                     document.getElementById("pop_up").style.display = "flex";
+                    document.getElementById("pop_up").style.opacity = "0";
+                    setTimeout(function () {
+                        document.getElementById("pop_up").style.transition = "opacity 0.5s";
+                        document.getElementById("pop_up").style.opacity = "1";
+                    }, 10);
                 }
             </script>
         </div>
@@ -845,7 +858,7 @@
         <div class="time-out" id="demo-block" style="display: none;">
             <div style="display: flex;flex-direction: column;align-items: center;row-gap: 10px;">
                 <p id="demo" class="demo">BEGIN</p>
-                <p class="mini-text" id="mn-text">10000</p>
+                <p class="mini-text" id="mn-text">00:00</p>
             </div>
         </div>
         <audio id="MyAudio">
@@ -989,7 +1002,31 @@
         <input type="file" id="fileInput" accept=".pdf">
         <iframe id="pdfViewer"></iframe>
     </div>
+
+    <div id="container2">
+        <div style="display: flex;justify-content: center;align-items: center; column-gap: 20px;">
+            <!-- <label for="fileInput" id="fileInputLabel2" class="hover-box"></label> -->
+
+            <button id="toggleDrag3" class="hover_box2">-</button>
+            <button id="Load">@</button>
+            <div class="boor">
+                <select id="subjectSelect">
+                    <option value="">Chọn môn</option>
+                    <option value="english">English</option>
+                    <option value="ds">Đại số</option>
+                    <option value="jp">Japanese</option>
+                    <option value="gt">Giải tích 1</option>
+                </select>
+            </div>
+        </div>
+        <div id="question" style="margin:10px 0;">Hãy chọn môn học để bắt đầu ✨</div>
+        <span id="timer"></span>
+        <div id="options"></div>
+        <div id="explanation"></div>
+    </div>
+    <script src="quest_ai.js"></script>
     <script src="container_draggble.js"></script>
+    <script src="container_draggble2.js"></script>
     <script>
         document.getElementById("music").addEventListener("click", function () {
             var musicDiv = document.getElementById("box_ghost");
@@ -1013,6 +1050,16 @@
             let clickSound = document.getElementById("clickSound");
 
             document.querySelectorAll(".hover-box").forEach(item => {
+                item.addEventListener("mouseenter", function () {
+                    hoverSound.currentTime = 0; // Đặt lại thời gian về 0 để phát lại từ đầu
+                    hoverSound.play();
+                });
+                item.addEventListener("click", function () {
+                    clickSound.currentTime = 0; // Reset về 0 để phát lại từ đầu
+                    clickSound.play();
+                });
+            });
+            document.querySelectorAll(".hover_box2").forEach(item => {
                 item.addEventListener("mouseenter", function () {
                     hoverSound.currentTime = 0; // Đặt lại thời gian về 0 để phát lại từ đầu
                     hoverSound.play();
@@ -1106,27 +1153,21 @@
     <script>
         var elem = document.documentElement;
         function time_out() {
-            let count = 0;
-            let disp = document.getElementById("mn-text");
-
-            setInterval(checkFocus, 200);
-
-            function checkFocus() {
-                if (document.hasFocus()) {
-
-                } else {
-                    count++;
-                    disp.innerHTML = 10000 - count;
-                }
-            }
-            document.getElementById('time_out').style.display = 'none';
+            // Hiệu ứng biến mất dần
+            document.getElementById('time_out').style.transition = "opacity 0.5s";
+            document.getElementById('time_out').style.opacity = "0";
+            setTimeout(function () {
+                document.getElementById('time_out').style.display = 'none';
+                // Hiệu ứng xuất hiện dần
+                document.getElementById('container2').style.display = 'block';
+                document.getElementById('container2').style.opacity = "0";
+                document.getElementById('container2').style.transition = "opacity 0.25s";
+                setTimeout(function () {
+                    document.getElementById('container2').style.opacity = "1";
+                }, 10);
+            }, 500);
             document.getElementById('mini-circle').style.background = "#EA5A47";
-            document.getElementById('demo-block').style.display = ('flex');
-            const myTimeout = setTimeout(myGreeting, 2700000);
-            function myGreeting() {
-                document.getElementById("demo").innerHTML = document.getElementById("demo").innerHTML.replace("BEGIN", "TIME OUT");
-                document.getElementById("MyAudio").play();
-            }
+
             if (elem.requestFullscreen) {
                 elem.requestFullscreen();
             } else if (elem.webkitRequestFullscreen) { /* Safari */
