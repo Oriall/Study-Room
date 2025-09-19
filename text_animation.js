@@ -1,8 +1,11 @@
 const texts = [
+    "",
     "Stay focused and keep learning.",
-    "Knowledge is power.",
     "Never give up, success is waiting for you.",
-    "A day without learning is a day wasted."
+    "A day without learning is a day wasted.",
+    "Type 'quiz' to let AI generate quiz questions for you.",
+    "Type 'pdf' to upload a file and start learning.",
+    "Type 'text' to add your own notes and keep track of ideas."
 ];
 
 let index = 0;
