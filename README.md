@@ -24,6 +24,7 @@
 > Để hiện thị box ứng dụng, tại ô **explore** nhập từ: 
 * **text** hiện thị box text !
 * **pdf** hiện thị box pdf upload !
+* **quiz** hiện thị box quiz generate from ai gemini !
 > Sẽ có 2 trạng thái của box, 1 để bật draggble kéo thả di chuyển box, 2 là tắt đi và resize cũng như hoạt động bình thường
 [Click để xem nơi nhập](image.png)
 
