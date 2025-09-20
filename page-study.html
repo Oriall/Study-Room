@@ -410,26 +410,24 @@
                             exploreDiv.replaceChild(input, textElement);
                             input.focus();
 
-                            input.addEventListener("blur", function () {
+                            function handleInputAction() {
                                 let newText = document.createElement("p");
                                 newText.innerText = input.value.trim() || "Explore";
                                 exploreDiv.replaceChild(newText, input);
                                 textElement = newText;
-                                if (input.value.toLowerCase().includes("pdf")) {
-                                    showYouTube();
-                                }
-                                if (input.value.toLowerCase().includes("hidepdf")) {
-                                    pdfcontainer.style.display = "none";
-                                }
-                                if (input.value.toLowerCase().includes("text")) {
-                                    showText();
-                                } if (input.value.toLowerCase().includes("hidetext")) {
-                                    textcontainer.style.display = "none";
-                                }
-                                if (input.value.toLowerCase().includes("quiz")) {
-                                    showquiz();
-                                } if (input.value.toLowerCase().includes("hidequiz")) {
-                                    ai.style.display = "none";
+                                const val = input.value.toLowerCase();
+                                if (val.includes("pdf")) showYouTube();
+                                if (val.includes("hidepdf")) pdfcontainer.style.display = "none";
+                                if (val.includes("text")) showText();
+                                if (val.includes("hidetext")) textcontainer.style.display = "none";
+                                if (val.includes("quiz")) showquiz();
+                                if (val.includes("hidequiz")) ai.style.display = "none";
+                            }
+
+                            input.addEventListener("blur", handleInputAction);
+                            input.addEventListener("keydown", function (e) {
+                                if (e.key === "Enter") {
+                                    input.blur();
                                 }
                             });
                         });
