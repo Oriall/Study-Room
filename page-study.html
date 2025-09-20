@@ -379,7 +379,7 @@
                 </div>
                 <div class="content">
                     <div class="explore">
-                        <p>Explore</p>
+                        <p>Explore ...</p>
                         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="11" viewBox="0 0 10 11" fill="none">
                             <path
                                 d="M6.77084 6.41667H6.34292L6.19125 6.25917C6.74043 5.57318 7.04227 4.69741 7.04167 3.79167C7.04167 3.04175 6.83518 2.30867 6.4483 1.68513C6.06143 1.06159 5.51155 0.575607 4.8682 0.288625C4.22485 0.00164287 3.51693 -0.0734448 2.83395 0.0728575C2.15098 0.21916 1.52363 0.580281 1.03123 1.11056C0.538832 1.64083 0.203506 2.31644 0.0676534 3.05195C-0.0681987 3.78746 0.00152552 4.54984 0.268009 5.24268C0.534493 5.93551 0.985767 6.52769 1.56476 6.94432C2.14376 7.36096 2.82448 7.58333 3.52084 7.58333C4.39292 7.58333 5.19458 7.23917 5.81208 6.6675L5.95834 6.83083V7.29167L8.66667 10.2025L9.47375 9.33334L6.77084 6.41667ZM3.52084 6.41667C2.17208 6.41667 1.08334 5.24417 1.08334 3.79167C1.08334 2.33917 2.17208 1.16667 3.52084 1.16667C4.86959 1.16667 5.95834 2.33917 5.95834 3.79167C5.95834 5.24417 4.86959 6.41667 3.52084 6.41667Z"
@@ -387,8 +387,23 @@
                         </svg>
                     </div>
                     <div class="time">
-                        <p>5:55 PM</p>
+                        <p id="current-time"></p>
                     </div>
+                    <script>
+                        function updateTime() {
+                            const now = new Date();
+                            let hours = now.getHours();
+                            let minutes = now.getMinutes();
+                            let ampm = hours >= 12 ? 'PM' : 'AM';
+                            hours = hours % 12;
+                            hours = hours ? hours : 12;
+                            minutes = minutes < 10 ? '0' + minutes : minutes;
+                            const timeString = hours + ':' + minutes + ' ' + ampm;
+                            document.getElementById('current-time').textContent = timeString;
+                        }
+                        updateTime();
+                        setInterval(updateTime, 1000);
+                    </script>
 
                 </div>
                 <script>
@@ -433,12 +448,33 @@
                         });
                         function showYouTube() {
                             pdfcontainer.style.display = "inline-block";
+                            pdfcontainer.style.opacity = "0";
+                            pdfcontainer.style.transform = "scale(0.8)";
+                            setTimeout(() => {
+                                pdfcontainer.style.transition = "opacity 0.4s, transform 0.4s";
+                                pdfcontainer.style.opacity = "1";
+                                pdfcontainer.style.transform = "scale(1)";
+                            }, 10);
                         }
                         function showText() {
                             textcontainer.style.display = "block";
+                            textcontainer.style.opacity = "0";
+                            textcontainer.style.transform = "scale(0.8)";
+                            setTimeout(() => {
+                                textcontainer.style.transition = "opacity 0.4s, transform 0.4s";
+                                textcontainer.style.opacity = "1";
+                                textcontainer.style.transform = "scale(1)";
+                            }, 10);
                         }
                         function showquiz() {
                             ai.style.display = "block";
+                            ai.style.opacity = "0";
+                            ai.style.transform = "scale(0.8)";
+                            setTimeout(() => {
+                                ai.style.transition = "opacity 0.4s, transform 0.4s";
+                                ai.style.opacity = "1";
+                                ai.style.transform = "scale(1)";
+                            }, 10);
                         }
                     });
 
@@ -1006,7 +1042,7 @@
             <!-- <label for="fileInput" id="fileInputLabel2" class="hover-box"></label> -->
 
             <button id="toggleDrag3" class="hover_box2">-</button>
-            <button id="Load">@</button>
+            <button id="Load"><img src="load.svg" alt=""></button>
             <div class="boor">
                 <select id="subjectSelect">
                     <option value="">Chọn môn</option>
@@ -1017,9 +1053,17 @@
                 </select>
             </div>
         </div>
-        <div id="question" style="margin:10px 0;">Hãy chọn môn học để bắt đầu ✨</div>
-        <span id="timer"></span>
-        <div id="options"></div>
+        <div style="display: flex;justify-content: space-between;align-items: center;">
+            <div class="ai_title">Please read Question Carefully!</div>
+            <div class="time_box_ai">
+                <span id="timer"></span>
+                <img src="clock.svg" alt="">
+            </div>
+        </div>
+        <div id="question" style="margin:10px 0;"></div>
+        <div id="options">
+        </div>
+        <div class="border_ai"></div>
         <div id="explanation"></div>
     </div>
     <script src="quest_ai.js"></script>

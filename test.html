@@ -1,218 +1,51 @@
-<style>
-    /* Popup nền */
-    #quiz-popup {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.6);
-        justify-content: center;
-        align-items: center;
-    }
+<!DOCTYPE html>
+<html lang="en">
 
-    /* Hộp quiz */
-    #quiz-box {
-        background: #fff;
-        border-radius: 12px;
-        padding: 20px;
-        width: 400px;
-        max-width: 90%;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="test.css">
+    <link rel="stylesheet" href="fonts.css">
+    <title>Document</title>
+</head>
 
-    .option-btn {
-        display: block;
-        padding: 8px;
-        margin: 6px 0;
-        border: 1px solid #aaa;
-        border-radius: 5px;
-        cursor: pointer;
-        text-align: left;
-    }
+<body>
+    <div id="container2">
+        <div style="display: flex;justify-content: center;align-items: center; column-gap: 20px;">
+            <!-- <label for="fileInput" id="fileInputLabel2" class="hover-box"></label> -->
 
-    .option-btn.correct {
-        background: #c8f7c5;
-        border-color: #2ecc71;
-    }
-
-    .option-btn.incorrect {
-        background: #f7c5c5;
-        border-color: #e74c3c;
-    }
-
-    #quiz-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    #quiz-header h3 {
-        margin: 0;
-    }
-
-    #explanation {
-        margin-top: 10px;
-        padding: 8px;
-        background: #f9f9f9;
-        border-left: 3px solid #888;
-        display: none;
-    }
-</style>
-
-<!-- Nút mở quiz -->
-<button onclick="document.getElementById('quiz-popup').style.display='flex'">Mở Quiz</button>
-
-<!-- Popup quiz -->
-<div id="quiz-popup">
-    <div id="quiz-box">
-        <div id="quiz-header">
-            <h3>Mini Quiz</h3>
-            <span id="timer"></span>
-            <button onclick="closeQuiz()">✖</button>
+            <button id="toggleDrag3" class="hover_box2">-</button>
+            <button id="Load">@</button>
+            <div class="boor">
+                <select id="subjectSelect">
+                    <option value="">Chọn môn</option>
+                    <option value="english">English</option>
+                    <option value="ds">Đại số</option>
+                    <option value="jp">Japanese</option>
+                    <option value="gt">Giải tích 1</option>
+                </select>
+            </div>
         </div>
-
-        <!-- chọn môn -->
-        <select id="subjectSelect">
-            <option value="">--Chọn môn--</option>
-            <option value="it">Tin học 12</option>
-            <option value="english">English</option>
-            <option value="math">Toán 12</option>
-            <option value="physics">Vật lý 12</option>
-        </select>
-
-        <div id="question" style="margin:10px 0;">Hãy chọn môn học để bắt đầu</div>
-        <div id="options"></div>
-        <div id="explanation"></div>
-        <button id="Load">Load câu hỏi khác</button>
+        <div style="display: flex;justify-content: space-between;align-items: center;">
+            <div class="ai_title">Please read Question Carefully!</div>
+            <div class="time_box_ai">
+                <span id="timer">9:00</span>
+                <img src="clock.svg" alt="">
+            </div>
+        </div>
+        <div id="question" style="margin:10px 0;">Tương anh trưởng bản Nghệ An hết lòng vì dân, bỗng chốc trắng tay ...
+            Vì ô tô hư hoàn toàn
+            Hơn 1 tháng trước, nước lũ tràn về trong đêm quá nhanh, bản làng nguy cơ bị cô lập</div>
+        <div id="options">
+            <div class="option-btn">9737</div>
+            <div class="option-btn correct">9737</div>
+            <div class="option-btn">9737</div>
+            <div class="option-btn incorrect">9737</div>
+        </div>
+        <div class="border_ai"></div>
+        <div id="explanation">👉 Bạn có muốn mình làm thêm dạng trắc nghiệm nhiều đáp án đúng (có thể chọn nhiều phương
+            án A, B, C, D) không?</div>
     </div>
-</div>
+</body>
 
-<script>
-    const questionEl = document.getElementById("question");
-    const optionsEl = document.getElementById("options");
-    const timerEl = document.getElementById("timer");
-    const subjectSelect = document.getElementById("subjectSelect");
-    const explanationEl = document.getElementById("explanation");
-
-    let correctAnswer = "", explanationText = "", selectedSubject = "";
-    let timerInterval = null;
-    let questionHistory = JSON.parse(localStorage.getItem("questionHistory") || "[]");
-
-    function closeQuiz() {
-        document.getElementById("quiz-popup").style.display = "none";
-        clearInterval(timerInterval);
-    }
-
-    // --- Lưu lịch sử ---
-    function saveQuestionToHistory(q) {
-        if (!questionHistory.includes(q)) {
-            questionHistory.push(q);
-            localStorage.setItem("questionHistory", JSON.stringify(questionHistory.slice(-50)));
-        }
-    }
-    function getAvoidListPrompt() {
-        if (questionHistory.length === 0) return "";
-        return `\nTránh lặp lại các câu hỏi sau:\n- ${questionHistory.join('\n- ')}\n`;
-    }
-
-    // --- Timer ---
-    function startTimer(duration) {
-        clearInterval(timerInterval);
-        let timeLeft = duration;
-        updateTimerDisplay(timeLeft);
-        timerInterval = setInterval(() => {
-            timeLeft--;
-            updateTimerDisplay(timeLeft);
-            if (timeLeft <= 0) { clearInterval(timerInterval); handleTimeout(); }
-        }, 1000);
-    }
-    function updateTimerDisplay(sec) {
-        timerEl.textContent = `${String(Math.floor(sec / 60)).padStart(2, "0")}:${String(sec % 60).padStart(2, "0")}`;
-    }
-    function handleTimeout() {
-        document.querySelectorAll(".option-btn").forEach(btn => {
-            btn.disabled = true;
-            if (btn.textContent === correctAnswer) btn.classList.add("correct");
-        });
-        questionEl.textContent = "⏰ Hết giờ!";
-        showExplanation();
-    }
-
-    // --- Load câu hỏi ---
-    async function loadQuestion() {
-        if (!selectedSubject) { questionEl.textContent = "⚠️ Hãy chọn môn học trước"; return; }
-        questionEl.textContent = "Loading...";
-        optionsEl.innerHTML = ""; explanationEl.style.display = "none"; timerEl.textContent = "";
-
-        const q = await fetchQuestionFromGemini();
-        if (!q || !q.question) { questionEl.textContent = "❌ Lỗi tải câu hỏi"; return; }
-        saveQuestionToHistory(q.question);
-
-        questionEl.textContent = q.question;
-        correctAnswer = q.answer;
-        explanationText = q.explanation || "Không có giải thích.";
-
-        q.options.forEach(opt => {
-            const btn = document.createElement("button");
-            btn.textContent = opt; btn.className = "option-btn";
-            btn.onclick = () => { clearInterval(timerInterval); handleAnswer(btn, opt); };
-            optionsEl.appendChild(btn);
-        });
-        startTimer((selectedSubject === "it" || selectedSubject === "english") ? 10 : 60);
-    }
-
-    function handleAnswer(btn, opt) {
-        document.querySelectorAll(".option-btn").forEach(b => b.disabled = true);
-        if (opt === correctAnswer) { btn.classList.add("correct"); }
-        else {
-            btn.classList.add("incorrect");
-            document.querySelectorAll(".option-btn").forEach(b => { if (b.textContent === correctAnswer) b.classList.add("correct"); });
-        }
-        showExplanation();
-    }
-    function showExplanation() {
-        explanationEl.textContent = explanationText;
-        explanationEl.style.display = "block";
-    }
-
-    // --- API Gemini ---
-    async function fetchQuestionFromGemini() {
-        const avoidList = getAvoidListPrompt();
-        let prompt = "";
-        if (selectedSubject === "it") {
-            prompt = `Hãy tạo một câu hỏi trắc nghiệm về từ vựng tiếng anh theo các chủ đề như: Technology, Environment, Health, Education, Culture, Travel, Food, Sports, Business,...
-${avoidList}
-Yêu cầu:
-- Nội dung câu hỏi liên quan trực tiếp đến từ vựng tiếng anh.
-- Ngẫu nhiên chọn một trong các chủ đề.
-- Câu hỏi có 4 lựa chọn trả lời, trong đó chỉ có 1 đáp án đúng.
-- Tránh lặp lại câu hỏi và đáp án ở các lần gọi.
-- Thêm phần giải thích ngắn gọn (1-5 câu) cho đáp án đúng.(không giải thích thêm)
-- Câu trả lời đưa ra tuân thủ hoàn toàn theo định dạng JSON và không giải thích gì thêm.
-- Giải thích bằng tiếng Việt.
-- Trả về kết quả dưới dạng JSON như sau:
-{
-  "question": "Câu hỏi ở đây?",
-  "options": ["Lựa chọn A", "Lựa chọn B", "Lựa chọn C", "Lựa chọn D"],
-  "answer": "Lựa chọn đúng",
-  "explanation": "Giải thích đáp án đúng"
-}`;
-        }
-        else if (selectedSubject === "english") { prompt = `Hãy tạo một câu hỏi trắc nghiệm từ vựng tiếng Anh...${avoidList}`; }
-        else if (selectedSubject === "math") { prompt = `Hãy tạo một câu hỏi trắc nghiệm Toán 12...${avoidList}`; }
-        else if (selectedSubject === "physics") { prompt = `Hãy tạo một câu hỏi trắc nghiệm Vật lý 12...${avoidList}`; }
-
-        const res = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCbWfOla29VASM0_jlfPIhUCqeCyaZA5jU", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-        });
-        const data = await res.json();
-        let txt = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
-        txt = txt.replace(/```json|```/g, "").trim();
-        try { return JSON.parse(txt); } catch (e) { console.error("Parse error", txt); return null; }
-    }
-
-    // --- sự kiện ---
-    subjectSelect.addEventListener("change", e => { selectedSubject = e.target.value; if (selectedSubject) loadQuestion(); });
-    document.getElementById("Load").addEventListener("click", loadQuestion);
-</script>
+</html>

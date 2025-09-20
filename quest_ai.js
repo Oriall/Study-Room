@@ -44,7 +44,7 @@ function handleTimeout() {
         btn.disabled = true;
         if (btn.textContent === correctAnswer) btn.classList.add("correct");
     });
-    questionEl.textContent = "⏰ Hết giờ!";
+    questionEl.textContent = "Time Out!!";
     showExplanation();
 }
 
