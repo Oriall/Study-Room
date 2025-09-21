@@ -15,23 +15,25 @@
 
 
 # Setup
-## Prerequisites
 * **Just click link and run**
 ---
-
-
+# Image Page
+>
+![Study Zone](./static/Css/Img/exp.png)
+>
+---
 > [!CAUTION]
 > Để hiện thị box công cụ hỗ trợ, tại ô **Explore** nhập từ:  
 > - <span style="color:#0078D4; font-weight:bold;">text</span>  
 > - <span style="color:#0078D4; font-weight:bold;">pdf</span>  
 > - <span style="color:#0078D4; font-weight:bold;">quiz</span> 
 
-* **text** hiện thị box text !
-* **pdf** hiện thị box pdf upload !
-* **quiz** hiện thị box quiz generate from ai gemini !
+* **text** :hiện thị box text !
+* **pdf** :hiện thị box pdf upload !
+* **quiz** :hiện thị box quiz generate from ai gemini !
 > Sẽ có 2 trạng thái của box, 1 để bật draggble kéo thả di chuyển box, 2 là tắt đi và resize cũng như hoạt động bình thường
 
-> Hình ảnh nơi để nhập (**Góc trái trên cùng**)
+> Hình ảnh nơi để nhập (**Góc trái trên cùng**):
 ---
 ![Explpore Nơi nhập](./static/Css/Img/image.png)
 
