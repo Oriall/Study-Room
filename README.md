@@ -26,7 +26,7 @@
 * **pdf** hiện thị box pdf upload !
 * **quiz** hiện thị box quiz generate from ai gemini !
 > Sẽ có 2 trạng thái của box, 1 để bật draggble kéo thả di chuyển box, 2 là tắt đi và resize cũng như hoạt động bình thường
-[Click để xem nơi nhập](./static/Css/Img/image.png)
+![Click để xem nơi nhập](./static/Css/Img/image.png)
 
 
 > Đây dơn giản là một dự án luyện tập Front-end nên chắc chắn sẽ ko có nhiều tính năng
