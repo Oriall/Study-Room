@@ -21,12 +21,19 @@
 
 
 > [!CAUTION]
-> Để hiện thị box ứng dụng, tại ô **explore** nhập từ: 
+> Để hiện thị box công cụ hỗ trợ, tại ô **Explore** nhập từ:  
+> - <span style="color:#0078D4; font-weight:bold;">text</span>  
+> - <span style="color:#0078D4; font-weight:bold;">pdf</span>  
+> - <span style="color:#0078D4; font-weight:bold;">quiz</span> 
+
 * **text** hiện thị box text !
 * **pdf** hiện thị box pdf upload !
 * **quiz** hiện thị box quiz generate from ai gemini !
 > Sẽ có 2 trạng thái của box, 1 để bật draggble kéo thả di chuyển box, 2 là tắt đi và resize cũng như hoạt động bình thường
-![Click để xem nơi nhập](./static/Css/Img/image.png)
+
+> Hình ảnh nơi để nhập (**Góc trái trên cùng**)
+---
+![Explpore Nơi nhập](./static/Css/Img/image.png)
 
 
 > Đây dơn giản là một dự án luyện tập Front-end nên chắc chắn sẽ ko có nhiều tính năng
