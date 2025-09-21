@@ -154,7 +154,7 @@ nav .time-box {
     width: 50px;
     height: 26px;
     border-radius: 4px;
-    background-image: url('evening-sky.png');
+    background-image: url('./static/Css/Bg/evening-sky.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -178,7 +178,7 @@ nav .time-box {
     width: 50px;
     height: 26px;
     border-radius: 4px;
-    background-image: url('storm.jpg');
+    background-image: url('./static/Css/Bg/storm.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
