@@ -265,6 +265,12 @@
                 menu.style.display = 'none';
             })
         </script>
+
+        <!----------CINEMATIC BAR--------->
+        <div class="cinematic_bar_top"></div>
+        <div class="cinematic_bar_bottom"></div>
+
+
         <div class="box">
             <div class="box-right"></div>
             <div id="box-center" onclick="efft_ck()" class="hover-box">
@@ -854,9 +860,9 @@
                     }
                 </script>
                 <div class="chon-side">
-                    <p>Chỉnh màu chủ đạo</p>
+                    <p>Chỉnh Cinematic Bar</p>
                     <label class="switch">
-                        <input type="checkbox">
+                        <input type="checkbox" id="cinematicToggle">
                         <span class="slider"></span>
                     </label>
                 </div>
@@ -1221,6 +1227,18 @@
         }
     </script>
     </script>
+    <script>
+        const toggle = document.getElementById("cinematicToggle");
+
+        toggle.addEventListener("change", () => {
+            if (toggle.checked) {
+                document.body.classList.add("show_cinematic");
+            } else {
+                document.body.classList.remove("show_cinematic");
+            }
+        });
+    </script>
+
     <script src="music.js"></script>
     <!----<script src="check.js"></script>--->
 </body>

@@ -116,6 +116,7 @@ a {
     align-items: center;
     justify-content: space-around;
     transition: 0.15s;
+    z-index: 2;
 }
 
 #box-center .home-btn {
@@ -183,6 +184,7 @@ a {
     align-items: center;
     justify-content: center;
     gap: 9px;
+    z-index: 2;
 }
 
 .box-right #music {
@@ -248,6 +250,7 @@ a {
     flex-direction: column;
     justify-content: center;
     transition: 0.45s;
+    z-index: 2;
     row-gap: 35px;
 
 }
@@ -704,6 +707,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    z-index: 3;
     align-items: center;
 
 }
@@ -746,6 +750,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 3;
 }
 
 #set-time:hover {
@@ -768,6 +773,7 @@ body {
     color: #FFF;
     border: #FFF 1px solid;
     font-size: 13px;
+    z-index: 3;
 }
 
 .choose-set-time:hover {
@@ -790,6 +796,7 @@ body {
     color: #FFF;
     border: #FFF 1px solid;
     font-size: 13px;
+    z-index: 3;
 }
 
 .choose-set-time2:hover {
@@ -812,6 +819,7 @@ body {
     color: #FFF;
     border: #FFF 1px solid;
     font-size: 12px;
+    z-index: 3;
 }
 
 .choose-set-time3:hover {
@@ -826,6 +834,7 @@ body {
     height: 609px;
     border-radius: 15px;
     background: #232931;
+    z-index: 2;
 }
 
 .thiet-lap .head {
@@ -1319,6 +1328,7 @@ body {
     justify-content: center;
     align-items: center;
     transition: 0.25s;
+    z-index: 4;
     cursor: pointer;
 }
 
@@ -1403,6 +1413,7 @@ body {
 #box_ghost {
     position: absolute;
     bottom: 0;
+    z-index: 2;
 }
 
 #ghost {
@@ -1751,6 +1762,7 @@ body {
     min-height: 40px;
     white-space: pre-wrap;
     user-select: none;
+    z-index: 2;
     /* Đảm bảo dấu cách hiển thị chính xác */
 }
 
@@ -1793,6 +1805,7 @@ body {
     overflow: none;
     border-radius: 5px;
     display: none;
+    z-index: 3;
 
 
 }
@@ -1886,6 +1899,7 @@ body {
     left: 50%;
     bottom: 300px;
     display: none;
+    z-index: 3;
 }
 
 /*----------COntainer Draggble----*/
@@ -1913,6 +1927,7 @@ body {
     font-weight: 600;
     line-height: normal;
     display: none;
+    z-index: 3;
 
 
 }
@@ -2218,4 +2233,64 @@ body {
 
 #toggleDrag2:hover {
     border: 1.5px solid #B3ADDD;
+}
+
+/*
+ * cinematric bar
+ * 
+ * This section applies a cinematic-style bar effect, typically used to create letterbox or widescreen aspect ratios.
+ * It can be used to add visual emphasis or simulate a film-like appearance in web layouts.
+ */
+
+.cinematic_bar_top {
+    position: fixed;
+    /* Fix the position to the viewport */
+    top: 0;
+    /* Align to the top of the viewport */
+    left: 0;
+    /* Align to the left of the viewport */
+    width: 100%;
+    /* Full width of the viewport */
+    /* Height of the cinematic bar */
+    background-color: rgba(0, 0, 0, 1);
+    /* Semi-transparent black background */
+    z-index: 1;
+    /* Ensure it appears above other content */
+    pointer-events: none;
+    /* Allow clicks to pass through */
+    transform: translateY(-100%);
+}
+
+.cinematic_bar_bottom {
+    position: fixed;
+    /* Fix the position to the viewport */
+    bottom: 0;
+    /* Align to the top of the viewport */
+    left: 0;
+    /* Align to the left of the viewport */
+    width: 100%;
+    /* Full width of the viewport *
+    /* Height of the cinematic bar */
+    background-color: rgba(0, 0, 0, 1);
+    /* Semi-transparent black background */
+    z-index: 1;
+    /* Ensure it appears above other content */
+    pointer-events: none;
+    /* Allow clicks to pass through */
+    transform: translateY(100%);
+}
+
+/* Khi bật chế độ cinematic */
+.show_cinematic .cinematic_bar_top {
+    transform: translateY(0);
+}
+
+.show_cinematic .cinematic_bar_bottom {
+    transform: translateY(0);
+}
+
+.cinematic_bar_top,
+.cinematic_bar_bottom {
+    transition: transform 0.6s ease-in-out;
+    height: 100px;
 }
