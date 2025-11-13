@@ -901,7 +901,6 @@ body {
     width: 100%;
     background: #2D333B;
 }
-
 .img-slide {
     padding-top: 20px;
     display: flex;
@@ -909,7 +908,6 @@ body {
     justify-content: center;
     column-gap: 20px;
     overflow: hidden;
-
 }
 
 .img-slide #box-slide {
@@ -917,10 +915,10 @@ body {
     height: 73px;
     overflow: hidden;
     display: flex;
-
+    position: relative;
 }
 
-#box-slide #list {
+#box-slide .slide-list {
     width: 255px;
     height: 100%;
     display: flex;
@@ -928,53 +926,40 @@ body {
     align-items: center;
     column-gap: 12px;
     overflow: hidden;
-    transition: 0.25s;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transform: translateX(0);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    pointer-events: none; /* QUAN TRỌNG: Vô hiệu hóa click khi ẩn */
 }
 
-#box-slide #list2 {
-    width: 255px;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    column-gap: 12px;
-    overflow: hidden;
-    transition: 0.25s;
+#box-slide .slide-list.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto; /* Bật lại click khi hiển thị */
 }
 
-#box-slide #list3 {
-    width: 255px;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    column-gap: 12px;
-    overflow: hidden;
-    transition: 0.25s;
+#box-slide .slide-list.slide-out-left {
+    opacity: 0;
+    transform: translateX(-30px);
 }
 
-#box-slide #list4 {
-    width: 255px;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    column-gap: 12px;
-    overflow: hidden;
-    transition: 0.25s;
+#box-slide .slide-list.slide-out-right {
+    opacity: 0;
+    transform: translateX(30px);
 }
 
-#box-slide #list5 {
-    width: 255px;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    column-gap: 12px;
-    overflow: hidden;
-    transition: 0.25s;
+#box-slide .slide-list.slide-in-left {
+    opacity: 0;
+    transform: translateX(-30px);
 }
 
+#box-slide .slide-list.slide-in-right {
+    opacity: 0;
+    transform: translateX(30px);
+}
 
 .img-slide #box-slide .item {
     cursor: pointer;
@@ -986,14 +971,16 @@ body {
     border-radius: 5px;
     border: 1px solid #36393E;
     background: lightgray 50% / cover no-repeat;
-    transition: 0.25s;
+    transition: all 0.25s ease;
+    position: relative;
 }
 
 .img-slide #box-slide .item:hover {
     border: #fff solid 1px;
+    transform: scale(1.05);
 }
 
-#phong1 {
+.checkmark-overlay {
     width: 100%;
     height: 100%;
     border-radius: 5px;
@@ -1001,98 +988,45 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
 }
 
-#phong2 {
-    width: 100%;
-    height: 100%;
-    border-radius: 5px;
-    background: rgba(0, 0, 0, 0.52);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.checkmark-overlay.visible {
+    opacity: 1;
 }
 
-#phong3 {
-    width: 100%;
-    height: 100%;
-    border-radius: 5px;
-    background: rgba(0, 0, 0, 0.52);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.checkmark-overlay svg {
+    animation: checkmarkPop 0.3s ease;
 }
 
-#phong4 {
-    width: 100%;
-    height: 100%;
-    border-radius: 5px;
-    background: rgba(0, 0, 0, 0.52);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+@keyframes checkmarkPop {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
-#phong5 {
-    width: 100%;
-    height: 100%;
-    border-radius: 5px;
-    background: rgba(0, 0, 0, 0.52);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* Navigation buttons hover effect */
+.img-slide svg {
+    transition: all 0.2s ease;
 }
 
-#phong6 {
-    width: 100%;
-    height: 100%;
-    border-radius: 5px;
-    background: rgba(0, 0, 0, 0.52);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.img-slide svg:hover {
+    transform: scale(1.2);
 }
 
-#phong7 {
-    width: 100%;
-    height: 100%;
-    border-radius: 5px;
-    background: rgba(0, 0, 0, 0.52);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.img-slide svg:active {
+    transform: scale(0.95);
 }
-
-#phong8 {
-    width: 100%;
-    height: 100%;
-    border-radius: 5px;
-    background: rgba(0, 0, 0, 0.52);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#phong9 {
-    width: 100%;
-    height: 100%;
-    border-radius: 5px;
-    background: rgba(0, 0, 0, 0.52);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#phong10 {
-    width: 100%;
-    height: 100%;
-    border-radius: 5px;
-    background: rgba(0, 0, 0, 0.52);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .box-mon {
     display: flex;
     justify-content: center;
