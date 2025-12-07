@@ -12,7 +12,9 @@ const backgrounds = [
     './static/Css/Bg/bg6.gif',
     './static/Css/Bg/bg7.gif',
     './static/Css/Bg/download (6).gif',
-    './static/Css/Bg/download (5).gif'
+    './static/Css/Bg/download (5).gif',
+    './static/Css/Bg/tl6.gif',
+    './static/Css/Bg/tl7.gif'
 ];
 
 const itemsPerSlide = 2;
